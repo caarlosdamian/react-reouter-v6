@@ -2,6 +2,7 @@ import { Form, useFetcher, useLoaderData } from 'react-router-dom';
 import { getContact, updateContact } from '../contacts';
 
 export async function loader({ params }) {
+  console.log({ params });
   const contact = await getContact(params.contactId);
   if (!contact) {
     throw new Response('', {
@@ -21,7 +22,7 @@ export async function action({ request, params }) {
 
 export default function Contact() {
   const { contact } = useLoaderData();
-
+  console.log({ contact });
   return (
     <div id="contact">
       <div>
@@ -35,7 +36,7 @@ export default function Contact() {
       </div>
 
       <div>
-        <h1>
+        <h1 data-testid="header">
           {contact.first || contact.last ? (
             <>
               {contact.first} {contact.last}
